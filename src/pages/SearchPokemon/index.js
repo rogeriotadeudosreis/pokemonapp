@@ -1,8 +1,35 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Keyboard, StyleSheet, Text, View} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+
+import api from '../../Services/api';
 
 export default function SearchPokemon() {
+  const navigation = useNavigation();
+  const [nome, setNome] = useState('');
+  const [pokemon, setPokemon] = useState({});
+
+  function handleListAll() {
+    navigation.navigate('ListAll');
+  }
+
+  async function handleSearch() {
+    if (nome === '') {
+      alert('Por favor, informe um nome ou id válido!');
+      setNome('');
+      return;
+    }
+
+    try {
+      const response = await api.get(`/${nome}`);
+      setPokemon(response.data);
+      Keyboard.dismiss();
+    } catch (error) {
+      console.log('Erro' + error);
+    }
+  }
+
   return (
     <>
       <View style={styles.container}>
@@ -11,10 +38,22 @@ export default function SearchPokemon() {
           style={styles.inputNameOrId}
           placeholderTextColor="#171717"
           placeholder="Digite o nome ou id do pokémon..."
+          value={nome}
+          onChangeText={setNome}
         />
-        <TouchableOpacity style={styles.botaoBuscar}>
+        <TouchableOpacity style={styles.botaoBuscar} onPress={handleSearch}>
           <Text style={styles.textoBotao}>Buscar</Text>
         </TouchableOpacity>
+      {pokemon && (
+        <View styles={styles.containerResultado}>
+          <Text style={styles.cep}>Nome: {pokemon.name}</Text>
+          <Text style={styles.cep}>Altura: {pokemon.height}</Text>
+          <Text style={styles.cep}>Peso: {pokemon.weight}</Text>
+          <Text style={styles.cep}>Habilidades: {pokemon.Abilities.name}</Text>
+          {/* <Text style={styles.cep}>Tipos: {pokemon.weight}</Text> */}
+          {/* <Text style={styles.cep}>Estatísticas: {pokemon.}</Text> */}
+        </View>
+      )}
       </View>
     </>
   );
