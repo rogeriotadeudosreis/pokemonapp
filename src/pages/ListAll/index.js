@@ -50,7 +50,7 @@ export default function ListAll() {
       <View style={styles.containerList}>
         <FlatList
           data={list}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.name}
           renderItem={({item}) => <Pokemons dados={item} />}
         />
       </View>
