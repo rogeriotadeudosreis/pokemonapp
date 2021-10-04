@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import api from '../../Services/api';
@@ -22,7 +22,8 @@ export default function ListAll() {
 
   async function handleListPokemon() {
     try {
-      const response = await api.get('/?limit=10&offset=0');
+      // const response = await api.get('/?limit=10&offset=0');
+      const response = await api.get('/');
       setList(response.data.results);
     } catch (error) {
       console.log('ERRO' + error);
@@ -32,10 +33,12 @@ export default function ListAll() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.texto}>Pokémon-App</Text>
+
+        <Image  style={{width:200, height:74, marginTop:10}}
+        source={require('../../assets/images/pokemon-logo.png')}/>
         <View style={styles.botaoElupa}>
           <TouchableOpacity
-            style={styles.botaoBuscar}
+            style={styles.botaoListar}
             onPress={handleListPokemon}>
             <Text style={styles.textoBotao}>Listar pokémon</Text>
           </TouchableOpacity>
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerList: {
-    flex: 4,
+    flex: 3,
     width: '100%',
     backgroundColor: '#c84d31',
   },
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  botaoBuscar: {
+  botaoListar: {
     borderColor: '#FFF',
     borderWidth: 2,
     margin: 10,
@@ -98,7 +101,6 @@ const styles = StyleSheet.create({
   },
   containerData: {
     marginTop: 10,
-    flexDirection: 'row',
     backgroundColor: '#FFF',
     marginHorizontal: 20,
     borderRadius: 4,
@@ -111,9 +113,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   botaoElupa: {
+    marginTop:10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
 });

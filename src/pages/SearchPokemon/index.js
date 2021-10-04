@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Keyboard, StyleSheet, Text, View, FlatList} from 'react-native';
+import {Keyboard, StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
@@ -13,8 +13,9 @@ export default function SearchPokemon() {
   function handleListAll() {
     navigation.navigate('ListAll');
   }
-
+  
   async function handleSearch() {
+    navigation.navigate('Details', {pokemon});
     if (nome === '') {
       alert('Por favor, informe um nome ou id válido!');
       setNome('');
@@ -32,10 +33,13 @@ export default function SearchPokemon() {
   return (
     <>
       <View style={styles.container}>
+        <Image
+          style={{width: 200, height: 74, marginTop: 10}}
+          source={require('../../assets/images/pokemon-logo.png')}
+        />
         <Text style={styles.texto}>Buscar Pokémon</Text>
         <TextInput
           style={styles.inputNameOrId}
-          placeholderTextColor="#171717"
           placeholder="Digite o nome ou id do pokémon..."
           value={nome}
           onChangeText={setNome}
@@ -43,27 +47,26 @@ export default function SearchPokemon() {
         <TouchableOpacity style={styles.botaoBuscar} onPress={handleSearch}>
           <Text style={styles.textoBotao}>Buscar</Text>
         </TouchableOpacity>
-        {pokemon && (
-          <View styles={styles.containerResultado}>
-            <Text style={styles.dados}>Nome: {pokemon.name}</Text>
-            <Text style={styles.dados}>Altura: {pokemon.height}</Text>
-            <Text style={styles.dados}>Peso: {pokemon.weight}</Text>
-            <Text style={styles.dados}>
-              Habilidades:
-              {pokemon.abilities[0].ability.name}
-            </Text>
-            <Text style={styles.dados}>
-              Tipos: {pokemon.types[0].type.name}
-            </Text>
+        <View style={{flex: 1}}>
+          {pokemon && (
+            <View styles={styles.containerResultado}>
+              <Text style={styles.dados}>{pokemon.name}</Text>              
+              <Text style={styles.dados}>Habilidades: </Text>
 
-            
 
-            <Text style={styles.dados}>Foto: {pokemon.name}</Text>
-            <Text style={styles.dados}>
-              Estatísticas: {pokemon.stats[0].stat.name}
-            </Text>
-          </View>
-        )}
+              <Text style={styles.dados}>
+                Tipos: {pokemon.types[0].type.name}
+              </Text>
+
+              <Text style={styles.dados}>Foto: {pokemon.name}</Text>
+
+              <Text style={styles.dados}>
+                Estatísticas: {pokemon.stats[5].stat.name}
+              </Text>
+
+            </View>
+          )}
+        </View>
       </View>
     </>
   );
@@ -77,14 +80,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   texto: {
+    marginTop: 10,
     color: '#fff',
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   botaoBuscar: {
     backgroundColor: '#0279b7',
     margin: 10,
-    width: 220,
+    width: 250,
     height: 40,
     borderRadius: 5,
     alignItems: 'center',
@@ -97,13 +101,12 @@ const styles = StyleSheet.create({
   },
   inputNameOrId: {
     height: 40,
+    width: '60%',
     backgroundColor: '#FFF',
     borderRadius: 5,
+    fontSize: 16,
+    textAlign:'center',
   },
-  // containerResultado: {
-  //   width: '100%',
-  //   backgroundColor: 'yellow',
-  // },
   dados: {
     width: 250,
     fontSize: 18,
@@ -115,5 +118,6 @@ const styles = StyleSheet.create({
     padding: 5,
     height: 40,
     borderRadius: 5,
+    textAlign:'center',
   },
 });
