@@ -23,8 +23,8 @@ export default function SearchPokemon() {
       const response = await api.get(`/${nameOrId}`);
       setPokemon(response.data);
       Keyboard.dismiss();
-      // setPhoto(response.data.sprites.other.dream_world.front_default)
-      // console.warn(photo)
+      setPhoto(response.data.sprites.other.dream_world.front_default)
+      console.warn(photo)
     } catch (error) {
       console.log('ERRO' + error);
     }
@@ -37,7 +37,7 @@ export default function SearchPokemon() {
         <Text style={styles.texto}>Buscar Pokémon</Text>
         <TextInput
           style={styles.inputNameOrId}
-          placeholder="Procurarcaterpie pokémon..."
+          placeholder="Procurar pokémon..."
           value={nameOrId}
           onChangeText={setNameOrId}
         />
