@@ -23,7 +23,7 @@ export default function App() {
           <Stack.Screen
             name="ListAll"
             component={ListAll}
-            options={{headerShown: true}}
+            options={{headerShown: true}} 
           />
 
           <Stack.Screen

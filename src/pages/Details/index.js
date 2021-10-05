@@ -2,47 +2,48 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 export default function Details(props) {
-  const nameOrId = props.route.params.nameOrId
+  const nameOrId = props.route.params.nameOrId;
   //console.warn(nameOrId)
-  
-  const [pokemon, setPokemon] = useState();
+
+  const [pokemon, setPokemon] = useState({});
   //console.warn(props)
   //setPokemon(props.route.params.pokemon) //props.route.params.pokemon
   //console.log(pokemon)
   useEffect(() => {
     async function handleSearch() {
+      try {
         const response = await api.get(`/${nameOrId}`);
         //const response = await api.get('/5');
-        //console.warn(response)
         setPokemon(response.data);
-    }    
-    handleSearch()
-
-  },[]);
+        // console.warn(response.data)
+      } catch (error) {}
+    }
+    handleSearch();
+  }, []);
 
   return (
     <>
-       <View style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.texto}>Detalhes do Pokémon</Text>
         {/* <Text>{route.params?.nameOrId}</Text> */}
-       {/*  <Text>{pokemon.name}</Text> */}
+        {/*  <Text>{pokemon.name}</Text> */}
       </View>
       <View style={{flex: 1}}>
         {/* {pokemon && ( */}
-          <View styles={styles.containerResultado}>
-            <Text style={styles.dados}>{nameOrId}</Text>
-            <Text style={styles.dados}>Habilidades: </Text>
+        <View styles={styles.containerResultado}>
+          <Text style={styles.dados}>{pokemon.name}</Text>
+          <Text style={styles.dados}>Habilidades: </Text>
 
-            {/* <Text style={styles.dados}>
+          {/* <Text style={styles.dados}>
               Tipos: {pokemon.types[0].type.name}
             </Text> */}
 
-           {/* <Text style={styles.dados}>Foto: {pokemon.name}</Text>*/}
+          {/* <Text style={styles.dados}>Foto: {pokemon.name}</Text> */}
 
-            {/* <Text style={styles.dados}>
+          {/* <Text style={styles.dados}>
               Estatísticas: {pokemon.stats[5].stat.name}
             </Text> */}
-          </View>
+        </View>
         {/* )} */}
       </View>
     </>
@@ -101,6 +102,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 5,
     textAlign: 'center',
-    backgroundColor: 'yellow'
+    backgroundColor: 'yellow',
   },
 });
