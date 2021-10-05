@@ -1,21 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export default function Details(props) {
-  const nameOrId = props.route.params.nameOrId;
+export default function Details({route}) {
+  const nameOrId = route.params.nameOrId;
   //console.warn(nameOrId)
 
   const [pokemon, setPokemon] = useState({});
-  //console.warn(props)
-  //setPokemon(props.route.params.pokemon) //props.route.params.pokemon
-  //console.log(pokemon)
+  
   useEffect(() => {
     async function handleSearch() {
       try {
-        const response = await api.get(`/${nameOrId}`);
-        //const response = await api.get('/5');
+        const response = await api.get(`/${nameOrId}`);       
         setPokemon(response.data);
-        // console.warn(response.data)
+         console.warn(pokemon.name)
       } catch (error) {}
     }
     handleSearch();
@@ -25,8 +22,7 @@ export default function Details(props) {
     <>
       <View style={styles.container}>
         <Text style={styles.texto}>Detalhes do Pokémon</Text>
-        {/* <Text>{route.params?.nameOrId}</Text> */}
-        {/*  <Text>{pokemon.name}</Text> */}
+        <Text style={{color:'#FFF'}}>{nameOrId}</Text>
       </View>
       <View style={{flex: 1}}>
         {/* {pokemon && ( */}

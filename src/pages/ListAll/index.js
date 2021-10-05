@@ -18,6 +18,7 @@ export default function ListAll() {
     );
   }
 
+  // função para chamar a busca pela lupa
   function handleSearch() {
     navigation.navigate('SearchPokemon');
   }

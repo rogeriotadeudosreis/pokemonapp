@@ -3,7 +3,7 @@ import {Text, View, Alert, Keyboard} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
-import SvgUri from 'react-native-svg-uri';
+import SvgUri from 'react-native-svg';
 
 import api from '../../Services/api';
 import Logo from '../../Components/logo';
@@ -24,10 +24,15 @@ export default function SearchPokemon() {
       setPokemon(response.data);
       Keyboard.dismiss();
       setPhoto(response.data.sprites.other.dream_world.front_default)
+      enviarDetalhe();
       console.warn(photo)
     } catch (error) {
       console.log('ERRO' + error);
     }
+  }
+
+  function enviarDetalhe(){
+    navigation.navigate('Details', {nameOrId: nameOrId});
   }
 
   return (
