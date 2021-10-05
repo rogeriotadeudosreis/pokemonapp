@@ -37,7 +37,7 @@ export default function SearchPokemon() {
         <Text style={styles.texto}>Buscar Pokémon</Text>
         <TextInput
           style={styles.inputNameOrId}
-          placeholder="Procurar pokémon..."
+          placeholder="Procurarcaterpie pokémon..."
           value={nameOrId}
           onChangeText={setNameOrId}
         />
