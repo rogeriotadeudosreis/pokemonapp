@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Keyboard, StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {Keyboard, StyleSheet, Text, View, FlatList, Image, Alert} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
@@ -7,27 +7,29 @@ import api from '../../Services/api';
 
 export default function SearchPokemon() {
   const navigation = useNavigation();
-  const [nome, setNome] = useState('');
+  const [nameOrId, setNameOrId] = useState('');
   const [pokemon, setPokemon] = useState(null);
 
-  function handleListAll() {
-    navigation.navigate('ListAll');
-  }
-  
+  // function handleSearch() {
+  //   navigation.navigate('Details', {nameOrId: nameOrId});
+  // }
+
   async function handleSearch() {
-    navigation.navigate('Details', {pokemon});
-    if (nome === '') {
+   
+    if (nameOrId === '') {
       alert('Por favor, informe um nome ou id válido!');
-      setNome('');
+      setNameOrId('');
       return;
     }
-    try {
-      const response = await api.get(`/${nome}`);
-      setPokemon(response.data);
-      Keyboard.dismiss();
-    } catch (error) {
-      console.log('Erro' + error);
-    }
+    //try {
+      //const response = await api.get(`/${nameOrId}`);
+      //console.log(response.data)
+      //setPokemon(response.data);
+      navigation.navigate('Details', { nameOrId })
+      //Keyboard.dismiss();
+    //} catch (error) {
+    //  console.log('Erro' + error);
+    //}
   }
 
   return (
@@ -41,8 +43,8 @@ export default function SearchPokemon() {
         <TextInput
           style={styles.inputNameOrId}
           placeholder="Digite o nome ou id do pokémon..."
-          value={nome}
-          onChangeText={setNome}
+          value={nameOrId}
+          onChangeText={setNameOrId}
         />
         <TouchableOpacity style={styles.botaoBuscar} onPress={handleSearch}>
           <Text style={styles.textoBotao}>Buscar</Text>
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 5,
     fontSize: 16,
-    textAlign:'center',
+    textAlign: 'center',
   },
   dados: {
     width: 250,
@@ -118,6 +120,6 @@ const styles = StyleSheet.create({
     padding: 5,
     height: 40,
     borderRadius: 5,
-    textAlign:'center',
+    textAlign: 'center',
   },
 });

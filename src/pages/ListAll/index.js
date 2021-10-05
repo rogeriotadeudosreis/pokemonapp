@@ -33,7 +33,6 @@ export default function ListAll() {
   return (
     <>
       <View style={styles.container}>
-
         <Image  style={{width:200, height:74, marginTop:10}}
         source={require('../../assets/images/pokemon-logo.png')}/>
         <View style={styles.botaoElupa}>
@@ -94,15 +93,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   namePokemon: {
-    paddingLeft: 20,
     margin: 10,
     fontSize: 20,
-    color: '#000',
+    color: '#808080',
   },
   containerData: {
     marginTop: 10,
     backgroundColor: '#FFF',
-    marginHorizontal: 20,
+    marginHorizontal: 50,
     borderRadius: 4,
     justifyContent: 'space-between',
     alignItems: 'center',

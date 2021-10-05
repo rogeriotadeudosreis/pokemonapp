@@ -17,19 +17,19 @@ export default function App() {
           <Stack.Screen
             name="SearchPokemon"
             component={SearchPokemon}
-            options={{headerShown: false}}
+            options={{headerShown: true}}
           />
           
           <Stack.Screen
             name="ListAll"
             component={ListAll}
-            options={{headerShown: false}}
+            options={{headerShown: true}}
           />
 
           <Stack.Screen
             name="Details"
             component={Details}
-            options={{headerShown: false}}
+            options={{headerShown: true}}
           />
           
           <Stack.Screen
