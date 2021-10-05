@@ -35,7 +35,7 @@ export default function ListAll() {
   return (
     <>
       <View style={styles.container}>
-        <Logo/>
+        <Logo />
         <View style={styles.botaoElupa}>
           <TouchableOpacity
             style={styles.botaoListar}
